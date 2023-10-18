@@ -1,0 +1,23 @@
+.imageContainer_md,
+.imageContainer_xs {
+  display: flex;
+  margin-right: 1rem;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+/* Styles for md screens (flex on md) */
+@media (min-width: 900px) {
+  .imageContainer_xs {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .imageContainer_md {
+    display: none;
+  }
+}

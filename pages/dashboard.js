@@ -5,6 +5,8 @@ import { getAuthenticatedUserFromSession } from "@/utils/passage";
 import { getSupabase } from "../utils/supabase";
 import { PassageUser } from "@passageidentity/passage-elements/passage-user";
 
+import { Typography } from "@mui/material";
+
 export default function Dashboard({ isAuthorized, userID, initialTodos }) {
   const [todos, setTodos] = useState(initialTodos);
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function Dashboard({ isAuthorized, userID, initialTodos }) {
   return (
     <div className={styles.main}>
       <div className={styles.container}>
-        <h1>Welcome {userID}! </h1>
+        <Typography color="secondary.light">Welcome {userID}!</Typography>
         <br></br>
         <button onClick={signOut}>Sign Out</button>
         <br></br>
