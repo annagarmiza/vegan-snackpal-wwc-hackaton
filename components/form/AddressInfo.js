@@ -7,11 +7,28 @@ import useInput from "../../utils/use-input";
 import { validAddress, validPostCode, validMobile } from "../../assets/regex";
 import { useState } from "react";
 
-const AddressInfo = () => {
+const AddressInfo = ({ onStepValidityChange }) => {
   const [enteredCountry, setEnteredCountry] = useState("");
   const [isCountryFieldTouched, setIsCountryFieldTouched] = useState(false);
   const [enteredProvince, setEnteredProvince] = useState("");
   const [provinceInputHasError, setProvinceInputHasError] = useState(false);
+
+  const isFormValid = () => {
+    const isValid =
+      enteredCountry &&
+      enteredAddressIsValid &&
+      enteredPostcodeIsValid &&
+      enteredMobileIsValid;
+    const obj = {
+      country: enteredCountry,
+      address: enteredAddress,
+      state: enteredProvince,
+      postcode: enteredPostcode,
+      mobile: enteredMobile,
+    };
+    //send this one to the parent with the final valid object
+    onStepValidityChange(isValid, obj);
+  };
 
   const countryChangeHandler = (event, value) => {
     setIsCountryFieldTouched(false);
@@ -26,6 +43,7 @@ const AddressInfo = () => {
     if (enteredCountry === "") {
       setIsCountryFieldTouched(true);
     }
+    isFormValid();
   };
 
   const provinceChangeHandler = (event) => {
@@ -106,11 +124,16 @@ const AddressInfo = () => {
     }
   });
 
+  const handleBlurValidation = () => {
+    isFormValid(); // Call isFormValid when a field blurs
+  };
+
   return (
     <Box
       sx={{
         backgroundColor: "#fafafa",
         padding: 2,
+        height: "380px",
       }}
     >
       <Grid container justifyContent="center" rowSpacing={2}>
@@ -170,10 +193,10 @@ const AddressInfo = () => {
           <TextField
             fullWidth
             id="address"
-            label="Address"
+            label="Street"
             variant="outlined"
             onChange={addressChangedHandler}
-            onBlur={addressBlurHandler}
+            onBlur={handleBlurValidation}
             value={enteredAddress}
             error={addressInputHasError}
             helperText={addressInputHasError ? addressErrorMessage : ""}
@@ -207,7 +230,7 @@ const AddressInfo = () => {
             label="Postcode"
             variant="outlined"
             onChange={postcodeChangedHandler}
-            onBlur={postcodeBlurHandler}
+            onBlur={handleBlurValidation}
             value={enteredPostcode}
             error={postcodeInputHasError}
             helperText={postcodeInputHasError ? postcodeErrorMessage : ""}
@@ -228,7 +251,7 @@ const AddressInfo = () => {
             value={enteredMobile}
             onChange={mobileChangedHandler}
             //onChange={mobileChangeHandler}
-            onBlur={mobileBlurHandler}
+            onBlur={handleBlurValidation}
             error={mobileInputHasError}
             helperText={mobileInputHasError ? mobileErrorMessage : ""}
           />

@@ -2,29 +2,24 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import useInput from "../../utils/use-input";
-import { useState } from "react";
-import { validName, validPassword, validEmail } from "../../assets/regex";
+import { validName, validEmail } from "../../assets/regex";
 
-const PersonalInfo = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+const PersonalInfo = ({ onStepValidityChange }) => {
+  const isFormValid = () => {
+    // Check if the form is valid
+    // Replace this with your form validation logic
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
+    const isValid =
+      enteredNameIsValid && enteredLastNameIsValid && enteredEmailIsValid;
+    const obj = {
+      name: enteredName,
+      lastName: enteredLastName,
+      email: enteredEmail,
+    };
+    //send this one to the parent with the final valid object
+    onStepValidityChange(isValid, obj);
   };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-    setShowPassword(!showPassword);
-  };
-  const handleClickShowPasswordConfirm = () => {
-    setShowPasswordConfirm(!showPasswordConfirm);
-  };
-
-  const handleMouseDownPasswordConfirm = (event) => {
-    event.preventDefault();
-    setShowPasswordConfirm(!showPasswordConfirm);
-  };
   const {
     value: enteredName,
     isValid: enteredNameIsValid,
@@ -93,56 +88,9 @@ const PersonalInfo = () => {
     }
   });
 
-  const {
-    value: enteredPassword,
-    isValid: enteredPasswordIsValid,
-    errorMessage: passwordErrorMessage,
-    hasError: passwordInputHasError,
-    valueChangeHandler: passwordChangedHandler,
-    inputBlurHandler: passwordBlurHandler,
-    //reset: resetNameInput,
-  } = useInput((value) => {
-    if (value.trim() === "") {
-      return {
-        error: false,
-        errorMessage: "Please enter super secret password",
-      };
-    }
-    if (!validPassword.test(value)) {
-      return {
-        error: false,
-        errorMessage:
-          "Password must be 8 charcters long and include at least one:🔸uppercase, 🔸lowercase, 🔸number and a 🔸 special character",
-      };
-    } else {
-      return { error: true, errorMessage: "" };
-    }
-  });
-
-  const {
-    value: enteredPasswordConfirm,
-    isValid: enteredPasswordConfirmIsValid,
-    errorMessage: passwordConfirmErrorMessage,
-    hasError: passwordConfirmInputHasError,
-    valueChangeHandler: passwordConfirmChangedHandler,
-    inputBlurHandler: passwordConfirmBlurHandler,
-    //reset: resetNameInput,
-  } = useInput((value) => {
-    if (value.trim() === "") {
-      return {
-        error: false,
-        errorMessage: "Please confirm your password",
-      };
-    }
-    if (value !== enteredPassword) {
-      return {
-        error: false,
-        errorMessage: "Passwords do not match",
-      };
-    } else {
-      return { error: true, errorMessage: "" };
-    }
-  });
+  const handleBlurValidation = () => {
+    isFormValid(); // Call isFormValid when a field blurs
+  };
 
   return (
     <Box
@@ -150,6 +98,7 @@ const PersonalInfo = () => {
         //   flexGrow: 1,
         backgroundColor: "#fafafa",
         padding: 2,
+        height: "380px",
         //   width: "90vh",
       }}
     >
@@ -161,8 +110,9 @@ const PersonalInfo = () => {
             label="First Name"
             variant="outlined"
             onChange={nameChangedHandler}
-            onBlur={nameBlurHandler}
+            onBlur={handleBlurValidation}
             value={enteredName}
+            defaultValue={enteredName}
             error={nameInputHasError}
             helperText={nameInputHasError ? nameErrorMessage : ""}
             inputProps={{ maxLength: 50 }}
@@ -175,8 +125,9 @@ const PersonalInfo = () => {
             label="Last Name"
             variant="outlined"
             onChange={lastNameChangedHandler}
-            onBlur={lastNameBlurHandler}
+            onBlur={handleBlurValidation}
             value={enteredLastName}
+            defaultValue={enteredLastName}
             error={lastNameInputHasError}
             helperText={lastNameInputHasError ? lastNameErrorMessage : ""}
             inputProps={{ maxLength: 50 }}
@@ -191,8 +142,9 @@ const PersonalInfo = () => {
             type="email"
             variant="outlined"
             onChange={emailChangedHandler}
-            onBlur={emailBlurHandler}
+            onBlur={handleBlurValidation}
             value={enteredEmail}
+            defaultValue={enteredEmail}
             error={emailInputHasError}
             helperText={emailInputHasError ? emailErrorMessage : ""}
             inputProps={{ maxLength: 62 }}
