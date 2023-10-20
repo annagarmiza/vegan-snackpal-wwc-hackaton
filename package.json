@@ -19,7 +19,7 @@
     "@faker-js/faker": "^8.2.0",
     "@mui/icons-material": "^5.14.13",
     "@mui/material": "^5.14.13",
-    "@passageidentity/passage-elements": "^1.2.1",
+    "@passageidentity/passage-elements": "^1.14.0",
     "@passageidentity/passage-node": "^2.1.2",
     "@prisma/client": "^5.4.2",
     "@supabase/supabase-js": "^2.12.1",
