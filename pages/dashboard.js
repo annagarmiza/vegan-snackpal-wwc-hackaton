@@ -5,8 +5,6 @@ import { getAuthenticatedUserFromSession } from "@/utils/passage";
 import { getSupabase } from "../utils/supabase";
 import { PassageUser } from "@passageidentity/passage-elements/passage-user";
 
-import { Typography } from "@mui/material";
-
 export default function Dashboard({ isAuthorized, userID, initialTodos }) {
   const [todos, setTodos] = useState(initialTodos);
   useEffect(() => {
@@ -37,7 +35,7 @@ export default function Dashboard({ isAuthorized, userID, initialTodos }) {
   return (
     <div className={styles.main}>
       <div className={styles.container}>
-        <Typography color="secondary.light">Welcome {userID}!</Typography>
+        <h1>Welcome {userID}! </h1>
         <br></br>
         <button onClick={signOut}>Sign Out</button>
         <br></br>
@@ -64,10 +62,8 @@ export const getServerSideProps = async (context) => {
     context.req,
     context.res
   );
-
   if (loginProps.isAuthorized) {
     const supabase = getSupabase(loginProps.userID);
-    console.log("supabase", supabase);
     const { data } = await supabase
       .from("todo")
       .select()

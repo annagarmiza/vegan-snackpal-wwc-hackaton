@@ -11,18 +11,21 @@ datasource db {
 }
 
 model User {
-  id                  String        @id @default(uuid())
-  email               String        @unique
-  name                String
-  ready_for_exachange Boolean
-  address             String
-  country             String
-  user_id_passage     String
-  recieved_packages   Int
-  sent_packages       Int
-  image_url           String
-  preferences         Preference[]
-  restrictions        Restriction[]
+  id                String        @id @default(uuid())
+  email             String        @unique
+  name              String
+  address           String
+  country           String
+  about_me          String
+  user_id_passage   String
+  recieved_packages Int?
+  sent_packages     Int?
+  image_url         String?
+  preferences       Preference[]
+  restrictions      Restriction[]
+  ready_to_exchange Boolean       @default(false)
+  matches_as_user1  Match[]       @relation(name: "UserOne_onMatch")
+  matches_as_user2  Match[]       @relation(name: "UserTwo_onMatch")
 }
 
 model Preference {
@@ -38,3 +41,18 @@ model Restriction {
   user_id String
   user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
+
+model Match {
+  id               Int      @id @default(autoincrement())
+  created_at       DateTime @default(now())
+  user_id_1        String
+  user_id_2        String
+  user_1           User     @relation(fields: [user_id_1], references: [id], name: "UserOne_onMatch")
+  user_2           User     @relation(fields: [user_id_2], references: [id], name: "UserTwo_onMatch")
+  completed        Boolean
+  user_id_1_status String
+  user_id_2_status String
+}
+
+// getActiveMatch(users_d)
+// get all matches  wher eithe user  A or user B has an id of me(current) ** completed = false
