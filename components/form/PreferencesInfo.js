@@ -21,6 +21,7 @@ const PreferencesInfo = ({ onStepValidityChange }) => {
   const [enteredAboutMe, setEnteredAboutMe] = useState("");
   const [enteredSnackPref, setEnteredSnackPref] = useState([]);
   const [enteredRestrictPref, setEnteredRestrictPref] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const isFormValid = () => {
     const obj = {
@@ -40,6 +41,14 @@ const PreferencesInfo = ({ onStepValidityChange }) => {
 
   const onChangeRestrictPref = (value) => {
     setEnteredRestrictPref([...value]);
+  };
+
+  const fileSelectedHandler = (event) => {
+    setSelectedFile(even.target.files[0]);
+  };
+
+  const fileUploadHandler = (event) => {
+    console.log(event.target.file[0]);
   };
 
   return (
@@ -158,12 +167,21 @@ const PreferencesInfo = ({ onStepValidityChange }) => {
                 multiple
                 type="file"
               />
-              <Button variant="contained" component="span">
+              <Button
+                variant="contained"
+                component="span"
+                onClick={this.fileUploadHandler}
+              >
                 Upload Profile Photo
               </Button>
             </label>
             <label htmlFor="icon-button-file">
-              <Input accept="image/*" id="icon-button-file" type="file" />
+              <Input
+                accept="image/*"
+                id="icon-button-file"
+                type="file"
+                onChange={this.fileSelectedHandler}
+              />
               <IconButton
                 color="primary"
                 aria-label="upload picture"

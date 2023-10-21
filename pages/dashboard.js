@@ -31,6 +31,7 @@ export default function Dashboard({
       })
       .then((data) => {
         setData(data);
+        console.log("DATA", data);
       })
       .catch((err) => {
         console.log(err);
@@ -45,20 +46,20 @@ export default function Dashboard({
   }, []);
 
   useEffect(() => {
-    get_user("a472d9e9-dcd2-4349-9805-18ecd577e44c")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  useEffect(() => {
     if (data === null) {
       Router.push("/register");
     }
   }, [data]);
+
+  // useEffect(() => {
+  //   get_user("a472d9e9-dcd2-4349-9805-18ecd577e44c")
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
