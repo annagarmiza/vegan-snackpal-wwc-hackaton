@@ -9,7 +9,6 @@ import PersonalInfo from "./form/PersonalInfo";
 import Button from "@mui/material/Button";
 import PreferencesInfo from "./form/PreferencesInfo";
 import Image from "next/image";
-
 const Registration = ({ onFormSubmit }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [currentStepFormValid, setCurrentStepFormValid] = useState(false);

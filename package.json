@@ -30,8 +30,11 @@
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "utf-8-validate": "^5.0.10",
     "util-deprecate": "^1.0.2",
     "uuid": "^9.0.1",
+    "web-encoding": "^1.1.5",
+    "web-streams-polyfill": "^3.2.1",
     "websocket": "^1.0.34",
     "yallist": "^4.0.0",
     "zod": "^3.22.4"

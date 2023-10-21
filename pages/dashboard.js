@@ -4,14 +4,42 @@ import Router from "next/router";
 import { getAuthenticatedUserFromSession } from "@/utils/passage";
 import { getSupabase } from "../utils/supabase";
 import { PassageUser } from "@passageidentity/passage-elements/passage-user";
+import {
+  get_user_passage_id,
+  generateMatch,
+  get_active_match,
+  get_user_preferences,
+  get_user,
+} from "../utils/api";
 
 export default function Dashboard({ isAuthorized, userID, initialTodos }) {
   const [todos, setTodos] = useState(initialTodos);
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    get_user_passage_id(`${userID}`)
+      .then((res) => {
+        return res;
+      })
+      .then((data) => {
+        setData(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   useEffect(() => {
     if (!isAuthorized) {
       Router.push("/");
     }
-  });
+  }, []);
+
+  useEffect(() => {
+    if (data === null) {
+      Router.push("/register");
+    }
+  }, [data]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +54,15 @@ export default function Dashboard({ isAuthorized, userID, initialTodos }) {
     }).then((res) => res.json());
     setTodos([...todos, res]);
   };
+  // examples
+  // useEffect(() => {
+  //   get_user(userID).then((res) => {
+  //     console.log(res);
+  //   });
+  //   generateMatch(userID).then((res) => {
+  //     console.log(res);
+  //   });
+  // }, []);
 
   const signOut = async () => {
     new PassageUser().signOut();

@@ -11,13 +11,14 @@ datasource db {
 }
 
 model User {
-  id                String        @id @default(uuid())
+  id                String        @id
   email             String        @unique
   name              String
   address           String
   country           String
-  about_me          String
-  user_id_passage   String
+  about_me          String?
+  mobile            Int?
+  user_id_passage   String        @unique
   recieved_packages Int?
   sent_packages     Int?
   image_url         String?
