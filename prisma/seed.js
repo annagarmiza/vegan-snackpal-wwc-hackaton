@@ -51,7 +51,7 @@ async function main() {
       data: {
         id: faker.datatype.int,
         name: restrictions[restriciton_index],
-        user_id: users[users_restriction_index].id,
+        user_id: users[users_restriction_index].user_id_passage,
       },
     });
   }
@@ -64,12 +64,12 @@ async function main() {
       data: {
         id: faker.datatype.int,
         name: faker.lorem.word(),
-        user_id: users[users_preference_index].id,
+        user_id: users[users_preference_index].user_id_passage,
       },
     });
   }
 
-  async function generateMatch(current_user_id) {
+  async function generateMatch(user_passage_id) {
     // Get all users ready to exchange
     const user_ids_that_should_not_be_matched = await prisma.match
       .findMany({
@@ -93,7 +93,7 @@ async function main() {
           });
       });
 
-    if (user_ids_that_should_not_be_matched.includes(current_user_id)) {
+    if (user_ids_that_should_not_be_matched.includes(user_passage_id)) {
       throw new Error(" This user is already part of an active match");
     }
 
@@ -101,7 +101,7 @@ async function main() {
       where: {
         ready_to_exchange: true,
         id: {
-          notIn: [...user_ids_that_should_not_be_matched, current_user_id],
+          notIn: [...user_ids_that_should_not_be_matched, user_passage_id],
         },
       },
     });
@@ -115,7 +115,7 @@ async function main() {
 
     let newMatch = prisma.match.create({
       data: {
-        user_id_1: current_user_id,
+        user_id_1: user_passage_id,
         user_id_2: randomUser.id,
         completed: false,
         user_id_1_status: "Packing 📦 ",
@@ -155,8 +155,8 @@ async function main() {
   // ]);
 
   await Promise.all([
-    generateMatch("e3a600f2-c95c-49cf-bf97-dbad2430eb73"),
-    generateMatch("573c4d61-704f-4eb9-bba9-bf06dd6cbe55"),
+    generateMatch("a472d9e9-dcd2-4349-9805-18ecd577e44c"),
+    generateMatch("7004c578-7ee1-4bf1-9eec-a41af45d54b2"),
   ]);
 }
 

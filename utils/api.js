@@ -110,6 +110,11 @@ export function get_user(current_user_id) {
   });
 }
 
+export function get_user_passage_id(userID) {
+  return vegan_SnackPal_Api("user", "findUnique", {
+    where: { user_id_passage: userID },
+  });
+}
 /**
  *  Fetche all the prefrences of a user
  */

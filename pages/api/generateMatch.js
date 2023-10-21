@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 const { z } = require("zod");
 const prisma = new PrismaClient();
-
 export default async function (req, res) {
   const request_body_schema = z.object({
     current_user_id: z.string().min(1),
@@ -57,12 +56,14 @@ async function generateMatch(current_user_id) {
     select: { country: true },
   });
 
-  console.log(current_user);
   const users_ready_to_exchange = await prisma.user.findMany({
     where: {
       ready_to_exchange: true,
       id: {
         notIn: [...user_ids_that_should_not_be_matched, current_user_id],
+      },
+      country: {
+        not: current_user.country, // Exclude users from the same country
       },
     },
   });
