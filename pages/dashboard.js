@@ -41,17 +41,6 @@ export default function Dashboard({
     if (!isAuthorized) {
       Router.push("/");
     }
-    console.log("userId", userID);
-  }, []);
-
-  useEffect(() => {
-    get_user("a472d9e9-dcd2-4349-9805-18ecd577e44c")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
 
   useEffect(() => {

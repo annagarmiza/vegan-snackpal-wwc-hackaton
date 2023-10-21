@@ -42,19 +42,16 @@ const Register = ({ isAuthorized, userID }) => {
       user_id_passage: `${userID}`,
       id: `${userID}`,
       about_me: formData.preferencesInfo.about_me,
+    }).then(() => {
+      let preferences = formData.preferencesInfo.snack_preferences;
+      let restricitons = formData.preferencesInfo.snack_restrictions;
+      for (let i = 0; i < preferences.length; i++) {
+        add_user_preference({ name: preferences[i], user_id: userID });
+      }
+      for (let i = 0; i < restricitons.length; i++) {
+        add_user_restriction({ name: restricitons[i], user_id: userID });
+      }
     });
-    // .then(() => {
-    //   let preferences = formData.preferencesInfo.snack_preferences;
-    //   let restricitons = formData.preferencesInfo.snack_restrictions;
-    //   console.log("preference", preferences);
-    //   console.log("restrictions", restricitons);
-    //   for (let i = 0; i < preferences.length; i++) {
-    //     add_user_preference({ name: preferences[i] });
-    //   }
-    //   for (let i = 0; i < restricitons.length; i++) {
-    //     add_user_restriction({ name: restricitons[i] });
-    //   }
-    // });
 
     Router.push("/dashboard");
   };
