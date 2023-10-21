@@ -1,8 +1,9 @@
-import styles from "@/styles/Home.module.css";
+// import styles from "@/styles/Home.module.css";
 import PassageLogin from "@/components/login";
 import { getAuthenticatedUserFromSession } from "@/utils/passage";
 import { useEffect } from "react";
 import Router from "next/router";
+import LoginScreen from "@/components/LoginScreen";
 
 export default function Home({ isAuthorized }) {
   useEffect(() => {
@@ -12,9 +13,11 @@ export default function Home({ isAuthorized }) {
   });
 
   return (
-    <div className={styles.main}>
-      <PassageLogin />
-    </div>
+    <>
+      <LoginScreen />
+
+      <div>{/* <PassageLogin /> */}</div>
+    </>
   );
 }
 
@@ -23,6 +26,7 @@ export const getServerSideProps = async (context) => {
     context.req,
     context.res
   );
+  console.log(loginProps);
   return {
     props: {
       isAuthorized: loginProps.isAuthorized ?? false,

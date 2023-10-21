@@ -13,18 +13,25 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Image from "next/image";
 import Link from "next/link";
+import { PassageUser } from "@passageidentity/passage-elements/passage-user";
+
 import Router from "next/router";
+import { useRouter } from "next/router";
 
 import styles from "@/styles/Header.module.css";
 
 import { useTheme } from "@mui/material/styles";
 
 const pages = ["Swap🔁Rules", "Q&A", "About"];
-const settings = ["Profile", "Account", "Logout"];
+const settings = ["Account", "Logout"];
 
 const Header = ({ hideHeaderElements }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const router = useRouter();
+  const isHomePage = router.pathname === "/";
+
+  const backgroundColor = isHomePage ? "black" : "primary";
 
   const theme = useTheme();
 
@@ -48,13 +55,17 @@ const Header = ({ hideHeaderElements }) => {
 
     if (setting === "Logout") {
       //TODO: clear the jwt session token
-      // new PassageUser().signOut();
-      // Router.push("/");
+      new PassageUser().signOut();
+      Router.push("/");
+    }
+
+    if (setting === "Account") {
+      Router.push("/account");
     }
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <div className={styles.imageContainer_md}>

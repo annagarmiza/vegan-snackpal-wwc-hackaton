@@ -1,16 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
+import Card from "@mui/material/Card";
 
 const PassageLogin = () => {
+  useEffect(() => {
+    require("@passageidentity/passage-elements/passage-auth");
+  }, []);
 
-    useEffect(()=>{
-        require('@passageidentity/passage-elements/passage-auth');
-    }, []);
+  return (
+    <Card elevation={15} sx={{ width: 320, height: 400 }}>
+      <passage-auth
+        app-id={process.env.NEXT_PUBLIC_PASSAGE_APP_ID}
+      ></passage-auth>
+    </Card>
+  );
+};
 
-    return (
-        <>
-          <passage-auth app-id={process.env.NEXT_PUBLIC_PASSAGE_APP_ID}></passage-auth>
-        </>
-      )
-  }
-  
-  export default PassageLogin
+export default PassageLogin;
