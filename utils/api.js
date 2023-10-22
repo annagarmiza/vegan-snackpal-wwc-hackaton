@@ -1,7 +1,7 @@
 // @ts-check
 const fetch = require("@remix-run/web-fetch");
 /**
- *
+ * @typedef {import("@prisma/client").Prisma} PrismaTypes
  * @typedef {import("@prisma/client").PrismaClient} Prisma
  * @typedef {{ [Key in keyof Prisma as Key extends `$${string}` ? never : Key]: Key}} Model
  */
@@ -41,8 +41,9 @@ export function generateMatch(current_user_id) {
 /**
  *  Fetch the users currently active match or `null` if no match exists
  *  @param {string} current_user_id
+ *  @param {import("@prisma/client").Prisma.MatchInclude} [include]
  */
-export function get_active_match(current_user_id) {
+export function get_active_match(current_user_id, include) {
   return vegan_SnackPal_Api("match", "findFirst", {
     where: {
       completed: false,
@@ -56,12 +57,12 @@ export function get_active_match(current_user_id) {
       ],
     },
     include: {
+      ...include,
       user_1: true,
       user_2: true,
     },
   });
 }
-
 /**
  * Fetch the users history of matches
  */
@@ -150,4 +151,8 @@ export function add_user_restriction(restriction) {
   return vegan_SnackPal_Api("restriction", "create", { data: restriction });
 }
 
-export function update_user_package_status() {}
+// export function update_user_package_status(user_status_id, status) {
+//   return vegan_SnackPal_Api("match", "update", {
+//     data: { user_id_1_status: status },
+//   });
+// }

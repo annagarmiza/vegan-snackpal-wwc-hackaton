@@ -32,9 +32,9 @@ async function main() {
     return newUser;
   }
 
-  // for (let i = 0; i < 5; i++) {
-  //   await create_user();
-  // }
+  for (let i = 0; i < 5; i++) {
+    await create_user();
+  }
 
   async function generateRestriction() {
     const users = await prisma.user.findMany();
@@ -118,8 +118,8 @@ async function main() {
         user_id_1: user_passage_id,
         user_id_2: randomUser.id,
         completed: false,
-        user_id_1_status: "Packing 📦 ",
-        user_id_2_status: "Packing 📦 ",
+        user_id_1_status: 0,
+        user_id_2_status: 0,
       },
     });
     return newMatch;
@@ -154,10 +154,10 @@ async function main() {
   //   generateRestriction(),
   // ]);
 
-  await Promise.all([
-    generateMatch("a472d9e9-dcd2-4349-9805-18ecd577e44c"),
-    generateMatch("7004c578-7ee1-4bf1-9eec-a41af45d54b2"),
-  ]);
+  // await Promise.all([
+  //   generateMatch("a472d9e9-dcd2-4349-9805-18ecd577e44c"),
+  //   generateMatch("7004c578-7ee1-4bf1-9eec-a41af45d54b2"),
+  // ]);
 }
 
 main()

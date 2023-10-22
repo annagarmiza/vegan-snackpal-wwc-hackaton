@@ -141,10 +141,9 @@ export default function Dashboard({ isAuthorized, userID, initialTodos }) {
 
   return (
     <>
-      {/* <MatchStarter /> */}
-      {/* <Status /> */}
-
       <div className={styles.main}>
+        {/* <MatchStarter />
+        <Status /> */}
         <div className={styles.container}>
           {data ? ( // Conditionally render MatchProfileCard if data is available
             <MatchProfileCard matchInfo={data} />

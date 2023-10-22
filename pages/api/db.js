@@ -17,6 +17,7 @@ const models = {
   preference: "preference",
   restriction: "restriction",
   user: "user",
+  orderStatus: "orderStatus",
 };
 
 // with zod you can create validators called "schemas" each schema verifies the shape of some data
@@ -31,7 +32,6 @@ const request_body_schema = z.object({
     "findFirstOrThrow",
     "findUniqueOrThrow",
     "create",
-    "update",
     "upsert",
     "delete",
     "deleteMany",
@@ -51,6 +51,7 @@ export default async function (req, res) {
       res.status(400).json(error);
     }
   } else {
+    /* @ts-ignore */
     return res.status(400).json(body.error);
   }
 }

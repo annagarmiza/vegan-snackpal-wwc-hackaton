@@ -44,15 +44,30 @@ model Restriction {
 }
 
 model Match {
-  id               Int      @id @default(autoincrement())
-  created_at       DateTime @default(now())
+  id               Int           @id @default(autoincrement())
+  created_at       DateTime      @default(now())
   user_id_1        String
   user_id_2        String
-  user_1           User     @relation(fields: [user_id_1], references: [id], name: "UserOne_onMatch")
-  user_2           User     @relation(fields: [user_id_2], references: [id], name: "UserTwo_onMatch")
+  user_1           User          @relation(fields: [user_id_1], references: [id], name: "UserOne_onMatch")
+  user_2           User          @relation(fields: [user_id_2], references: [id], name: "UserTwo_onMatch")
   completed        Boolean
-  user_id_1_status String
-  user_id_2_status String
+  user_id_1_status Int
+  user_id_2_status Int
+  statuses         OrderStatus[]
+
+  @@unique([user_id_1, user_id_2]) // you cant have more then one row with the same sender and recieverw
+}
+
+// Everytime I generate a match, two order status will be created 
+model OrderStatus {
+  id           Int    @id @default(autoincrement())
+  match_id     Int
+  status       Int
+  sender_id    String
+  recipient_id String
+  match        Match  @relation(fields: [sender_id, recipient_id], references: [user_id_1, user_id_2])
+
+  @@unique([match_id, sender_id, recipient_id, status])
 }
 
 // getActiveMatch(users_d)
