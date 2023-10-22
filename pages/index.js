@@ -4,12 +4,28 @@ import { getAuthenticatedUserFromSession } from "@/utils/passage";
 import { useEffect } from "react";
 import Router from "next/router";
 import LoginScreen from "@/components/LoginScreen";
+import { get_user_passage_id } from "../utils/api";
 
-export default function Home({ isAuthorized }) {
+export default function Home({ isAuthorized, userID }) {
   useEffect(() => {
-    if (isAuthorized) {
-      Router.push("/dashboard");
-    }
+    get_user_passage_id(userID)
+      .then((res) => {
+        if (res && isAuthorized) {
+          // User is authorized and registered, so stay on the dashboard
+          Router.push("/dashboard");
+        } else {
+          // User is not registered, redirect to the registration page
+          Router.push("/register");
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking user registration:", error);
+      });
+
+    // if (isAuthorized) {
+    //   Router.push("/dashboard");
+    // } else {
+    // }
   });
 
   return (

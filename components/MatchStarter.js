@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Grid } from "@mui/material";
 import styles from "../styles/MatchStarter.module.css";
 import api, { generateMatch } from "../utils/api";
-const MatchStarter = () => {
+import Router from "next/router";
+const MatchStarter = ({ userID }) => {
   function handleMatchMaker() {
-    generateMatch("HGknGaRQ4gvQInMh2adLAMrB").then((res) => {
+    generateMatch(userID).then((res) => {
       console.log("result", res);
     });
+    Router.push("/dashboard");
   }
 
   return (

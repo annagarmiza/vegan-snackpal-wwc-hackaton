@@ -25,14 +25,25 @@ const MatchProfileCard = ({ matchInfo }) => {
   //   preferences,
   //   restrictions,
   // } = matchInfo;
+  console.log("match_info", matchInfo);
+  const {
+    about_me,
+    address,
+    country,
+    email,
+    id,
+    image_url,
+    mobile,
+    name,
+    restrictions,
+    preferences,
+  } = matchInfo;
 
-  const { about_me, address, country, email, id, image_url, mobile, name } =
-    matchInfo.userPassageIdData;
+  // const restrictions = matchInfo.userRestrictionsData;
+  // console.log("restcrions", restrictions);
+  // const preferences = matchInfo.userPreferencesData;
 
-  const restricitons = matchInfo.userRestrictionsData;
-  const preferences = matchInfo.userPreferencesData;
-
-  console.log("MATCH INFO", matchInfo);
+  // console.log("MATCH INFO", matchInfo);
 
   const countryCode = countries
     .find((countryItem) => countryItem.label == country)
@@ -81,22 +92,22 @@ const MatchProfileCard = ({ matchInfo }) => {
                   <Chip
                     color="secondary"
                     variant="outlined"
-                    key={index}
-                    label={preference}
+                    key={preference.id}
+                    label={preference.name}
                     className={styles.chip}
                   />
                 ))}
               </Typography>
             )}
-            {restricitons.length > 0 && (
+            {restrictions.length > 0 && (
               <Typography variant="subtitle1" color="textSecondary">
                 Please considerate their food restrictions <br />
                 {restrictions.map((restriction, index) => (
                   <Chip
                     color="error"
                     variant="outlined"
-                    key={index}
-                    label={restriction}
+                    key={restriction.id}
+                    label={restriction.name}
                     className={styles.chip}
                   />
                 ))}

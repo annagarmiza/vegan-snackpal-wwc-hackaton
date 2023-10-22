@@ -3,16 +3,18 @@ import { Grid } from "@mui/material";
 import InteractiveStepper from "./steps/InteractiveStepepr";
 import ReadOnlyStepper from "./steps/ReadOnlyStepper";
 import api, { get_active_match } from "../utils/api";
-const Status = () => {
+
+const Status = ({ userID }) => {
+  console.log("userid in track status", userID);
   let [loading, setLoading] = useState(true);
   let [orderStatus, setorderStatus] = useState(null);
   let [recieving_most_recent_status, setrecieving_most_recent_status] =
     useState(null);
   let [active_match, setActive_match] = useState(null);
-  let loggedinUser = "HGknGaRQ4gvQInMh2adLAMrB";
+  let loggedinUser = userID;
 
   useEffect(() => {
-    get_active_match("HGknGaRQ4gvQInMh2adLAMrB", {
+    get_active_match(userID, {
       statuses: {
         where: {
           sender_id: loggedinUser,
@@ -45,7 +47,7 @@ const Status = () => {
         setLoading(false);
       });
 
-    get_active_match("HGknGaRQ4gvQInMh2adLAMrB", {
+    get_active_match(userID, {
       statuses: {
         where: {
           NOT: {
@@ -57,6 +59,7 @@ const Status = () => {
       const most_recent_status = res.statuses.sort((a, b) => {
         return b.status - a.status;
       })[0];
+
       setrecieving_most_recent_status(most_recent_status);
     });
   }, []);

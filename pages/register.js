@@ -18,6 +18,7 @@ const Register = ({ isAuthorized, userID }) => {
   const [formData, setFormData] = useState(null);
   const [data, setData] = useState(null);
   // const [userID, setUserID] = useState(userID)
+
   useEffect(() => {
     get_user_passage_id(`${userID}`)
       .then((res) => {
@@ -90,7 +91,7 @@ const Register = ({ isAuthorized, userID }) => {
       }
     });
 
-    Router.push("/dashboard");
+    Router.push("/matching");
   };
 
   return (
