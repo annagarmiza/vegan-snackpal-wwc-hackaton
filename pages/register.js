@@ -11,9 +11,13 @@ import {
 } from "../utils/api";
 import Router from "next/router";
 
+const IMAGE_URL =
+  "https://xdwutqmwwlojomwfesjf.supabase.co/storage/v1/object/public/snackPalStorage/";
+
 const Register = ({ isAuthorized, userID }) => {
   const [formData, setFormData] = useState(null);
   const [data, setData] = useState(null);
+  // const [userID, setUserID] = useState(userID)
   useEffect(() => {
     get_user_passage_id(`${userID}`)
       .then((res) => {
@@ -27,8 +31,40 @@ const Register = ({ isAuthorized, userID }) => {
       });
   }, [formData]);
   console.log("formData", formData);
-  const handleFormSubmit = (formData) => {
-    setFormData(formData);
+  const handleFormSubmit = async (formData) => {
+    const imageFile = formData.preferencesInfo.image_url;
+    let imageUrl = IMAGE_URL;
+    const formDataImg = new FormData();
+    formDataImg.append("data", userID);
+    formDataImg.append("image_url", imageFile);
+
+    console.log(imageFile);
+
+    try {
+      const response = await fetch("api/addImage", {
+        method: "POST",
+        body: formDataImg,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        let { path } = data; // Log the data if the request was successful
+        imageUrl += path;
+        console.log(imageUrl);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    // const { urlData } = await supabase.storage
+    //   .from("snackPalStorage")
+    //   .getPublicUrl(userID + ".jpeg");
+    // if (error) {
+    //   console.error("Error uploading image:", error);
+    // } else {
+    //   console.log("Image uploaded successfully");
+    //   console.log(urlData);
+    // }
     create_user({
       address:
         formData.addressInfo.address +
@@ -42,6 +78,7 @@ const Register = ({ isAuthorized, userID }) => {
       user_id_passage: `${userID}`,
       id: `${userID}`,
       about_me: formData.preferencesInfo.about_me,
+      image_url: imageUrl,
     }).then(() => {
       let preferences = formData.preferencesInfo.snack_preferences;
       let restricitons = formData.preferencesInfo.snack_restrictions;

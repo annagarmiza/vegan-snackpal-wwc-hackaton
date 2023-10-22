@@ -9,6 +9,7 @@ const getSupabase = (userId) => {
       userId,
       exp: Math.floor(Date.now() / 1000) + 60 * 60,
     };
+    console.log(userId, payload, process.env.SUPABASE_JWT_SECRET);
     const token = jwt.sign(payload, process.env.SUPABASE_JWT_SECRET);
     options.global = {
       headers: {

@@ -34,6 +34,7 @@ export default function MyApp(props) {
   const [hideHeaderElement, setHideHeaderElement] = useState(
     router.pathname === "/" || router.pathname === "/register"
   );
+  const [initialRenderComplete, setInitialRenderComplete] = useState(false);
 
   useEffect(() => {
     // Update hideHeaderElements based on the new route
@@ -41,6 +42,12 @@ export default function MyApp(props) {
       router.pathname === "/" || router.pathname === "/register"
     );
   }, [router.pathname]);
+
+  useEffect(() => {
+    setInitialRenderComplete(true);
+  }, []);
+
+  if (!initialRenderComplete) return <></>;
 
   return (
     <ThemeProvider theme={theme}>

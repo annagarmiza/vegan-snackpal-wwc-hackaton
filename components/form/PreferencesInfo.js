@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { createClient } from "@supabase/supabase-js";
 import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -12,6 +13,7 @@ import { snackPreferences } from "../../assets/snack-preferences";
 import { snackRestrictions } from "../../assets/snack-restrictions";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import { getSupabase } from "@/utils/supabase";
 
 const Input = styled("input")({
   display: "none",
@@ -28,12 +30,13 @@ const PreferencesInfo = ({ onStepValidityChange }) => {
       about_me: enteredAboutMe,
       snack_preferences: enteredSnackPref,
       snack_restrictions: enteredRestrictPref,
+      image_url: selectedFile,
     };
     onStepValidityChange(true, obj);
   };
   useEffect(() => {
     isFormValid();
-  }, [enteredSnackPref, enteredRestrictPref]);
+  }, [enteredSnackPref, enteredRestrictPref, selectedFile]);
 
   const onChangeSnackPref = (value) => {
     setEnteredSnackPref([...value]);
@@ -43,12 +46,38 @@ const PreferencesInfo = ({ onStepValidityChange }) => {
     setEnteredRestrictPref([...value]);
   };
 
-  const fileSelectedHandler = (event) => {
-    setSelectedFile(even.target.files[0]);
+  const fileSelectedHandler = async (event) => {
+    if (event.target.files) {
+      setSelectedFile(event.target.files[0]);
+    }
+    console.log("THIS IS THE IMG", event.target.files[0]);
+
+    // const fileBlob = new Blob([event.target.files[0]], {
+    //   type: selectedFile.type,
+    // });
+
+    // const { data, error } = await supabase.storage
+    //   .from("snackPalStorage")
+    //   .upload(event.target.files[0].name, fileBlob);
+    // if (error) {
+    //   console.error("Error uploading image:", error);
+    // } else {
+    //   console.log("Image uploaded successfully");
+    //   console.log("Image URL:", data.Location);
+    // }
   };
 
-  const fileUploadHandler = (event) => {
-    console.log(event.target.file[0]);
+  const fileUploadHandler = async (event) => {
+    // const supabase = getSupabase();
+    // const { data, error } = await supabase.storage
+    //   .from("snackPalStorage")
+    //   .upload(selectedFile);
+    // if (error) {
+    //   console.error("Error uploading image:", error);
+    // } else {
+    //   console.log("Image uploaded successfully");
+    //   console.log("Image URL:", data.Location);
+    // }
   };
 
   return (
@@ -160,27 +189,26 @@ const PreferencesInfo = ({ onStepValidityChange }) => {
         </Grid>
         <Grid item xs={12} md={8}>
           <div id="upload-photo">
+            {/* Label for the contained-button-file input */}
             <label htmlFor="contained-button-file">
+              <Button variant="contained" component="span">
+                Upload Profile Photo
+              </Button>
               <Input
                 accept="image/*"
                 id="contained-button-file"
                 multiple
                 type="file"
+                onChange={fileSelectedHandler}
               />
-              <Button
-                variant="contained"
-                component="span"
-                onClick={this.fileUploadHandler}
-              >
-                Upload Profile Photo
-              </Button>
             </label>
+            {/* Label for the icon-button-file input */}
             <label htmlFor="icon-button-file">
               <Input
                 accept="image/*"
                 id="icon-button-file"
                 type="file"
-                onChange={this.fileSelectedHandler}
+                onChange={fileSelectedHandler}
               />
               <IconButton
                 color="primary"

@@ -12,36 +12,86 @@ import {
   generateMatch,
   get_active_match,
   get_user_preferences,
+  get_user_restrictions,
   get_user,
 } from "../utils/api";
 
-export default function Dashboard({
-  isAuthorized,
-  userID,
-  initialTodos,
-  matchData,
-}) {
+export default function Dashboard({ isAuthorized, userID, initialTodos }) {
   const [todos, setTodos] = useState(initialTodos);
   const [data, setData] = useState("");
+  // const [matchData, setMatchData] = useState("");
 
   useEffect(() => {
-    get_user_passage_id(`${userID}`)
-      .then((res) => {
-        return res;
-      })
-      .then((data) => {
-        setData(data);
-        console.log("DATA", data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    // get_user_passage_id(`${userID}`)
+    //   .then((res) => {
+    //     return res;
+    //   })
+    //   .then((data) => {
+    //     setData(data);
+    //     console.log("DATA", data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // get_user_preferences(`${userID}`)
+    //   .then((res) => {
+    //     return res;
+    //   })
+    //   .then((data) => {
+    //     setData({ ...data, preferences: res });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // get_user_restrictions(`${userID}`)
+    //   .then((res) => {
+    //     return res;
+    //   })
+    //   .then((data) => {
+    //     setData({ ...data, restrictions: res });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    const fetchData = async () => {
+      try {
+        // Fetch user passage ID
+        const userPassageIdData = await get_user_passage_id(userID);
+        // setData(userPassageIdData);
+
+        // Fetch user preferences
+        const userPreferencesData = await get_user_preferences(userID);
+        // setData((prevData) => ({
+        //   ...prevData,
+        //   preferences: userPreferencesData,
+        // }));
+
+        // Fetch user restrictions
+        const userRestrictionsData = await get_user_restrictions(userID);
+        setData((prevData) => ({
+          ...prevData,
+          userPassageIdData,
+          userPreferencesData,
+          userRestrictionsData,
+        }));
+        // setData((prevData) => ({
+        //   ...prevData,
+        //   restrictions: userRestrictionsData,
+        // }));
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+    console.log(data);
+  }, [data]);
 
   useEffect(() => {
     if (!isAuthorized) {
       Router.push("/");
     }
+
     console.log("userId", userID);
   }, []);
 
@@ -96,7 +146,11 @@ export default function Dashboard({
 
       <div className={styles.main}>
         <div className={styles.container}>
-          <MatchProfileCard matchInfo={matchData} />
+          {data ? ( // Conditionally render MatchProfileCard if data is available
+            <MatchProfileCard matchInfo={data} />
+          ) : (
+            <p>Loading data...</p> // You can replace this with a loading indicator
+          )}
 
           <h1>Welcome {userID}! </h1>
           <br></br>
@@ -127,18 +181,18 @@ export const getServerSideProps = async (context) => {
     context.res
   );
 
-  let matchData = {
-    name: "Summy Sunshine",
-    address: "Stonehedge Level 34, Ontario",
-    user_country: "Canada",
-    recieved_packages: "2",
-    sent_packages: "2",
-    aboutMe: "I love boozing it up and I can't stop",
-    preferences: ["Chocoholic", "Mint Enthusiast"],
-    restrictions: ["Kosher", "Gluten Free"],
-    userImage:
-      "https://www.adobe.com/express/create/media_1bb16e7672a85e70733846fe9d8fb1b412da97be9.jpeg?width=400&format=jpeg&optimize=medium",
-  };
+  // let matchData = {
+  //   name: "Summy Sunshine",
+  //   address: "Stonehedge Level 34, Ontario",
+  //   user_country: "Canada",
+  //   recieved_packages: "2",
+  //   sent_packages: "2",
+  //   aboutMe: "I love boozing it up and I can't stop",
+  //   preferences: ["Chocoholic", "Mint Enthusiast"],
+  //   restrictions: ["Kosher", "Gluten Free"],
+  //   userImage:
+  //     "https://www.adobe.com/express/create/media_1bb16e7672a85e70733846fe9d8fb1b412da97be9.jpeg?width=400&format=jpeg&optimize=medium",
+  // };
 
   // let user = get_user("565a41a9-4ede-4bac-b491-b39619bf9a61")
   //   .then((res) => {
@@ -178,7 +232,6 @@ export const getServerSideProps = async (context) => {
     props: {
       isAuthorized: loginProps.isAuthorized ?? false,
       userID: loginProps.userID ?? "",
-      matchData: matchData,
     },
   };
 };

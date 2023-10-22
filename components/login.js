@@ -7,7 +7,7 @@ const PassageLogin = () => {
   }, []);
 
   return (
-    <Card elevation={15} sx={{ width: 320, height: 400 }}>
+    <Card elevation={15} sx={{ width: 320, height: 420 }}>
       <passage-auth
         app-id={process.env.NEXT_PUBLIC_PASSAGE_APP_ID}
       ></passage-auth>

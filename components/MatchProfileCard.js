@@ -10,21 +10,32 @@ import { useEffect } from "react";
 import styles from "./../styles/MatchProfileCard.module.css";
 
 const MatchProfileCard = ({ matchInfo }) => {
-  const {
-    name,
-    address,
-    user_country,
-    recieved_packages,
-    sent_packages,
-    aboutMe,
-    preferences,
-    restrictions,
-    userImage,
-  } = matchInfo;
+  // const {
+  //   userPassageIdData,
+  //   userPreferencesData,
+  //   userRestrictionsData,
+  //   about_me,
+  //   address,
+  //   country,
+  //   email,
+  //   id,
+  //   image_url,
+  //   mobile,
+  //   name,
+  //   preferences,
+  //   restrictions,
+  // } = matchInfo;
 
-  console.log(user_country);
+  const { about_me, address, country, email, id, image_url, mobile, name } =
+    matchInfo.userPassageIdData;
+
+  const restricitons = matchInfo.userRestrictionsData;
+  const preferences = matchInfo.userPreferencesData;
+
+  console.log("MATCH INFO", matchInfo);
+
   const countryCode = countries
-    .find((country) => country.label == user_country)
+    .find((countryItem) => countryItem.label == country)
     .code.toLowerCase();
 
   return (
@@ -39,7 +50,7 @@ const MatchProfileCard = ({ matchInfo }) => {
             className={styles.cardItem}
             component="img"
             alt={name}
-            image={userImage}
+            image={image_url}
             style={{ borderRadius: "5px" }}
           />
         </Grid>
@@ -54,45 +65,49 @@ const MatchProfileCard = ({ matchInfo }) => {
                 height="80"
                 className={styles.flagImage}
                 src={`https://flagcdn.com/112x84/${countryCode}.png`}
-                alt={user_country}
+                alt={country}
               />
-              {user_country}!
+              {country}!
               <Typography variant="subtitle1" color="textSecondary">
                 {name} wants you to know: <br />
-                <span className={styles.highlight}>{aboutMe}</span>
+                <span className={styles.highlight}>{about_me}</span>
               </Typography>
             </div>
-            <Typography variant="subtitle1" color="textSecondary">
-              They refer to themselves as:
-              <br />
-              {preferences.map((preference, index) => (
-                <Chip
-                  color="secondary"
-                  variant="outlined"
-                  key={index}
-                  label={preference}
-                  className={styles.chip}
-                />
-              ))}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              Please considerate their food restrictions <br />
-              {restrictions.map((restriction, index) => (
-                <Chip
-                  color="error"
-                  variant="outlined"
-                  key={index}
-                  label={restriction}
-                  className={styles.chip}
-                />
-              ))}
-            </Typography>
+            {preferences.length > 0 && (
+              <Typography variant="subtitle1" color="textSecondary">
+                They refer to themselves as:
+                <br />
+                {preferences.map((preference, index) => (
+                  <Chip
+                    color="secondary"
+                    variant="outlined"
+                    key={index}
+                    label={preference}
+                    className={styles.chip}
+                  />
+                ))}
+              </Typography>
+            )}
+            {restricitons.length > 0 && (
+              <Typography variant="subtitle1" color="textSecondary">
+                Please considerate their food restrictions <br />
+                {restrictions.map((restriction, index) => (
+                  <Chip
+                    color="error"
+                    variant="outlined"
+                    key={index}
+                    label={restriction}
+                    className={styles.chip}
+                  />
+                ))}
+              </Typography>
+            )}
             <Typography
               variant="subtitle1"
               color="textSecondary"
               style={{ fontWeight: "bold" }}
             >
-              Send your package to: <br /> {address}, {user_country}
+              Send your package to: <br /> {address}, {country}
             </Typography>
           </CardContent>
         </Grid>
