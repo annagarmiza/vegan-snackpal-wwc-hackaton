@@ -55,6 +55,7 @@ async function generateMatch(current_user_id) {
     },
     select: { country: true },
   });
+  console.log("current user", current_user);
 
   const users_ready_to_exchange = await prisma.user.findMany({
     where: {
@@ -82,8 +83,8 @@ async function generateMatch(current_user_id) {
       user_id_1: current_user_id,
       user_id_2: randomUser.id,
       completed: false,
-      user_id_1_status: "Packing 📦 ",
-      user_id_2_status: "Packing 📦 ",
+      user_id_1_status: 0,
+      user_id_2_status: 0,
     },
     include: {
       user_1: true,

@@ -26,7 +26,6 @@ const Register = ({ isAuthorized, userID }) => {
         console.log(err);
       });
   }, [formData]);
-  console.log("formData", formData);
   const handleFormSubmit = (formData) => {
     setFormData(formData);
     create_user({

@@ -79,10 +79,9 @@ export default function Dashboard({
 
   return (
     <>
-      {/* <MatchStarter /> */}
-      {/* <Status /> */}
-
       <div className={styles.main}>
+        {/* <MatchStarter />
+        <Status /> */}
         <div className={styles.container}>
           <MatchProfileCard matchInfo={matchData} />
 

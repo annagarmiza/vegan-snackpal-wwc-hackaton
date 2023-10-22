@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -11,29 +12,35 @@ import { TextField } from "@mui/material";
 
 const steps = [
   {
+    step: 0,
     label: "Met Your Pal's Profile!",
     description: `Your Pal knows that you know, that they know, that you know! Click 'Continue' to let them know you're moving to the next step. Just a friendly reminder, you've got 3 days to keep the excitement going!`,
   },
   {
+    step: 1,
     label: "Craft a snack-tastic surprise for your Pal",
     description:
       "You have 7 days to complete this step. It's time to start collecting the ultimate surprise box for your Pal! Think about their preferences and any restrictions they may have. Get creative with a personal note and perhaps some fun stickers? We trust you to make it special!",
   },
   {
+    step: 2,
     label: "Ship the box to your Pal 📦✈️",
     description: `For this step, we only accept tracked packages! Before you hit 'Continue,' make sure to input your tracking number for the pack. Your Pal is thrilled and can't sit still with excitement!`,
   },
   {
+    step: 3,
     label: "Pal's snack pack is in your hands! 🎁🍫",
     description: `Now that you're holding it, show your Pal your appreciation. You can reach out to them via email. Here's their email address – let them know!`,
   },
 ];
 
-export default function InteractiveStepper({ activeStep }) {
-  const [localStep, setActiveStep] = React.useState(activeStep);
+export default function InteractiveStepper({ activeStep, onPressNext }) {
+  const [_localStep, setActiveStep] = React.useState(activeStep);
+  const localStep = activeStep;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    onPressNext();
   };
 
   const handleBack = () => {

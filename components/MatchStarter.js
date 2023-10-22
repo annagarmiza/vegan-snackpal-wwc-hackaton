@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Grid } from "@mui/material";
 import styles from "../styles/MatchStarter.module.css";
-
+import api, { generateMatch } from "../utils/api";
 const MatchStarter = () => {
+  function handleMatchMaker() {
+    generateMatch("HGknGaRQ4gvQInMh2adLAMrB").then((res) => {
+      console.log("result", res);
+    });
+  }
+
   return (
     <Box
       sx={{
@@ -25,7 +31,9 @@ const MatchStarter = () => {
         Get The SWAPPING Started!
       </Typography>
       <Grid conrainer justifyContent="center" align="center">
-        <button className={styles.button}>MATCH ME!</button>
+        <button onClick={handleMatchMaker} className={styles.button}>
+          MATCH ME!
+        </button>
       </Grid>
     </Box>
   );
