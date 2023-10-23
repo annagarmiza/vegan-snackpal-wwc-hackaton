@@ -1,6 +1,5 @@
-# Passage with Supabase
-
-Use [Passage](https://passage.id/) to add authentication to your site built with Supabase.
+# Vegan Snack Pal - Women Who Code Hackaton 2023
+Our project simplifies global access to vegan snacks by enabling easy package exchanges between users from different countries. It matches users for smooth exchanges with real-time tracking, promoting a plant-based diet and reducing environmental impact. Built with Next.js and Supabase for an efficient and seamless experience.🌱📦🔁🍫
 
 ## Set up
 
@@ -12,6 +11,7 @@ Use [Passage](https://passage.id/) to add authentication to your site built with
 6. Run the application: `npm run dev`
 7. Your application is running on http://localhost:3000
 
-## Learn more
+## Collaborators 
 
-You can find a detailed integration guide [here](https://docs.passage.id/helpful-guides/supabase-integration-guide).
+- Berenika Ahmetaj ([GitHub](https://github.com/johndoe))
+- Anna Garmiza ([GitHub](https://github.com/annagarmiza))
