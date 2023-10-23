@@ -144,7 +144,6 @@ const AddressInfo = ({ onStepValidityChange }) => {
             id="country-select-demo"
             sx={{ width: "100%" }}
             options={countries}
-            //onChange={(event, value) => console.log(value.label)}
             onChange={countryChangeHandler}
             autoHighlight
             getOptionLabel={(option) => option.label}

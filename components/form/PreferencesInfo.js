@@ -50,35 +50,9 @@ const PreferencesInfo = ({ onStepValidityChange }) => {
     if (event.target.files) {
       setSelectedFile(event.target.files[0]);
     }
-    console.log("THIS IS THE IMG", event.target.files[0]);
-
-    // const fileBlob = new Blob([event.target.files[0]], {
-    //   type: selectedFile.type,
-    // });
-
-    // const { data, error } = await supabase.storage
-    //   .from("snackPalStorage")
-    //   .upload(event.target.files[0].name, fileBlob);
-    // if (error) {
-    //   console.error("Error uploading image:", error);
-    // } else {
-    //   console.log("Image uploaded successfully");
-    //   console.log("Image URL:", data.Location);
-    // }
   };
 
-  const fileUploadHandler = async (event) => {
-    // const supabase = getSupabase();
-    // const { data, error } = await supabase.storage
-    //   .from("snackPalStorage")
-    //   .upload(selectedFile);
-    // if (error) {
-    //   console.error("Error uploading image:", error);
-    // } else {
-    //   console.log("Image uploaded successfully");
-    //   console.log("Image URL:", data.Location);
-    // }
-  };
+  const fileUploadHandler = async (event) => {};
 
   return (
     <Box

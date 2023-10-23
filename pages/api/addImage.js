@@ -12,8 +12,6 @@ export default async function handler(req, res) {
   const form = new formidable.IncomingForm();
 
   form.parse(req, async (err, fields, files) => {
-    console.log({ err, fields, files });
-
     const { userID } = fields.data;
     const { filepath, newFilename, mimetype } = files.image_url;
 

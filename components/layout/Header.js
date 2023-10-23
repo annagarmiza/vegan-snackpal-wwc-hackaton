@@ -37,7 +37,6 @@ const Header = ({ hideHeaderElements }) => {
   const router = useRouter();
 
   React.useEffect(() => {
-    console.log("I'm innnnnn motherfucker");
     const handleRouteChange = (url) => {
       if (url === "/") {
         setBackgroundColor("black");

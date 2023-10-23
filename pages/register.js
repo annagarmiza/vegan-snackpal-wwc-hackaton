@@ -31,15 +31,12 @@ const Register = ({ isAuthorized, userID }) => {
         console.log(err);
       });
   }, [formData]);
-  console.log("formData", formData);
   const handleFormSubmit = async (formData) => {
     const imageFile = formData.preferencesInfo.image_url;
     let imageUrl = IMAGE_URL;
     const formDataImg = new FormData();
     formDataImg.append("data", userID);
     formDataImg.append("image_url", imageFile);
-
-    console.log(imageFile);
 
     try {
       const response = await fetch("api/addImage", {
@@ -51,21 +48,11 @@ const Register = ({ isAuthorized, userID }) => {
         const data = await response.json();
         let { path } = data; // Log the data if the request was successful
         imageUrl += path;
-        console.log(imageUrl);
       }
     } catch (error) {
       console.error("Error:", error);
     }
 
-    // const { urlData } = await supabase.storage
-    //   .from("snackPalStorage")
-    //   .getPublicUrl(userID + ".jpeg");
-    // if (error) {
-    //   console.error("Error uploading image:", error);
-    // } else {
-    //   console.log("Image uploaded successfully");
-    //   console.log(urlData);
-    // }
     create_user({
       address:
         formData.addressInfo.address +
@@ -106,7 +93,6 @@ export const getServerSideProps = async (context) => {
     context.req,
     context.res
   );
-  console.log("IN IN REGISTERRRR", loginProps.isAuthorized, loginProps.userID);
   // let user_exist_in_supabase = get_user_passage_id(`${loginProps.userID}`).then(
   //   (res) => {
   //     return res;

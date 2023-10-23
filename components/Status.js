@@ -6,7 +6,6 @@ import api, { get_active_match } from "../utils/api";
 import { LinearProgress } from "@mui/material";
 
 const Status = ({ userID }) => {
-  console.log("userid in track status", userID);
   let [loading, setLoading] = useState(true);
   let [orderStatus, setorderStatus] = useState(null);
   let [recieving_most_recent_status, setrecieving_most_recent_status] =
@@ -24,8 +23,7 @@ const Status = ({ userID }) => {
     })
       .then((res) => {
         setActive_match(res);
-        console.log(res);
-        console.log(res.statuses);
+
         const most_recent_status = res.statuses.sort((a, b) => {
           return b.status - a.status;
         })[0];

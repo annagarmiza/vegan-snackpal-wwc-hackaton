@@ -10,7 +10,6 @@ export default function Home({ isAuthorized, userID }) {
   useEffect(() => {
     get_user_passage_id(userID)
       .then((res) => {
-        console.log(res, isAuthorized);
         if (res && isAuthorized) {
           // User is authorized and registered, so stay on the dashboard
           Router.push("/dashboard");
@@ -43,7 +42,6 @@ export const getServerSideProps = async (context) => {
     context.req,
     context.res
   );
-  console.log(loginProps);
   return {
     props: {
       isAuthorized: loginProps.isAuthorized ?? false,

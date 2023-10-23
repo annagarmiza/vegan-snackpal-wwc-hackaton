@@ -10,22 +10,6 @@ import { useEffect } from "react";
 import styles from "./../styles/MatchProfileCard.module.css";
 
 const MatchProfileCard = ({ matchInfo }) => {
-  // const {
-  //   userPassageIdData,
-  //   userPreferencesData,
-  //   userRestrictionsData,
-  //   about_me,
-  //   address,
-  //   country,
-  //   email,
-  //   id,
-  //   image_url,
-  //   mobile,
-  //   name,
-  //   preferences,
-  //   restrictions,
-  // } = matchInfo;
-  console.log("match_info", matchInfo);
   const {
     about_me,
     address,
@@ -38,12 +22,6 @@ const MatchProfileCard = ({ matchInfo }) => {
     restrictions,
     preferences,
   } = matchInfo;
-
-  // const restrictions = matchInfo.userRestrictionsData;
-  // console.log("restcrions", restrictions);
-  // const preferences = matchInfo.userPreferencesData;
-
-  // console.log("MATCH INFO", matchInfo);
 
   const countryCode = countries
     .find((countryItem) => countryItem.label == country)

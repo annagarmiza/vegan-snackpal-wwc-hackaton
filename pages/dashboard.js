@@ -147,55 +147,6 @@ export const getServerSideProps = async (context) => {
     context.res
   );
 
-  console.log(loginProps.userID);
-
-  // let matchData = {
-  //   name: "Summy Sunshine",
-  //   address: "Stonehedge Level 34, Ontario",
-  //   user_country: "Canada",
-  //   recieved_packages: "2",
-  //   sent_packages: "2",
-  //   aboutMe: "I love boozing it up and I can't stop",
-  //   preferences: ["Chocoholic", "Mint Enthusiast"],
-  //   restrictions: ["Kosher", "Gluten Free"],
-  //   userImage:
-  //     "https://www.adobe.com/express/create/media_1bb16e7672a85e70733846fe9d8fb1b412da97be9.jpeg?width=400&format=jpeg&optimize=medium",
-  // };
-
-  // let user = get_user("565a41a9-4ede-4bac-b491-b39619bf9a61")
-  //   .then((res) => {
-  //     console.log(res.json());
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-  // let preference = get_user_preferences("565a41a9-4ede-4bac-b491-b39619bf9a61")
-  //   .then((res) => {
-  //     console.log(res);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-  // console.log("THIS IS USER", user);
-  // console.log("THIS IS PREFERENCE", preference);
-
-  // if (loginProps.isAuthorized) {
-  //   const supabase = getSupabase(loginProps.userID);
-  //   const { data } = await supabase
-  //     .from("todo")
-  //     .select()
-  //     .is("is_complete", false);
-  //   console.log("");
-  //   return {
-  //     props: {
-  //       isAuthorized: loginProps.isAuthorized ?? false,
-  //       userID: loginProps.userID ?? "",
-  //       initialTodos: data ?? [],
-  //     },
-  //   };
-  // } else {
   return {
     props: {
       isAuthorized: loginProps.isAuthorized ?? false,

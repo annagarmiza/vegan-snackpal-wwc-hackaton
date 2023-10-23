@@ -3,7 +3,6 @@ import { getSupabase } from "../../utils/supabase";
 
 export default async function handler(req, res) {
   const { userID, image_url_name } = req.body;
-  console.log({ userID, image_url_name });
   const supabase = getSupabase(userID);
   const { data, error } = await supabase.storage
     .from("snackPalStorage")

@@ -3,7 +3,6 @@ import { getSupabase } from "../../utils/supabase";
 
 export default async function handler(req, res) {
   const { userID, todo } = req.body;
-  console.log({ userID, todo });
   const supabase = getSupabase(userID);
   const { data, error } = await supabase
     .from("todo")
