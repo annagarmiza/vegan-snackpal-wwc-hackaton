@@ -50,7 +50,11 @@ const MatchProfileCard = ({ matchInfo }) => {
     .code.toLowerCase();
 
   return (
-    <Card elevation={15} className={[styles.background, styles.card].join(" ")}>
+    <Card
+      elevation={15}
+      sx={{ marginX: 4, marginY: 4 }}
+      className={[styles.background, styles.card].join(" ")}
+    >
       <div className={styles.leftTopImageContainer}>
         <img height="100px" src={`stamp.png`} alt="Stamp Image" />
       </div>
@@ -62,7 +66,11 @@ const MatchProfileCard = ({ matchInfo }) => {
             component="img"
             alt={name}
             image={image_url}
-            style={{ borderRadius: "5px" }}
+            style={{
+              borderRadius: "5px",
+              maxHeight: "400px",
+              maxWidth: "400px",
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6}>

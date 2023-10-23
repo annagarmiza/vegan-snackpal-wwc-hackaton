@@ -73,13 +73,18 @@
     font-size: 100px; /* Adjust the font size for smaller screens */
   }
 }
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1200px) {
   .text_container h1 {
-    font-size: 160px; /* Adjust the font size for smaller screens */
+    font-size: 130px; /* Adjust the font size for smaller screens */
+  }
+}
+@media screen and (min-width: 1300px) {
+  .text_container h1 {
+    font-size: 140px; /* Adjust the font size for smaller screens */
   }
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1900px) {
   .text_container h1 {
     font-size: 200px; /* Adjust the font size for smaller screens */
   }

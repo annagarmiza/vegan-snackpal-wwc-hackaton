@@ -10,6 +10,11 @@
   color: white;
 }
 
+.link_menu {
+  text-decoration: none;
+  color: black;
+}
+
 /* Styles for md screens (flex on md) */
 @media (min-width: 900px) {
   .imageContainer_xs {

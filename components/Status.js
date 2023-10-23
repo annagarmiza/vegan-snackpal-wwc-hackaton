@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import InteractiveStepper from "./steps/InteractiveStepepr";
 import ReadOnlyStepper from "./steps/ReadOnlyStepper";
 import api, { get_active_match } from "../utils/api";
+import { LinearProgress } from "@mui/material";
 
 const Status = ({ userID }) => {
   console.log("userid in track status", userID);
@@ -92,17 +93,24 @@ const Status = ({ userID }) => {
   }
 
   if (loading) {
-    return <div>Loading</div>;
+    return (
+      <div>
+        <LinearProgress color="secondary" />
+        <LinearProgress color="secondary" />
+        <LinearProgress color="secondary" />
+        <LinearProgress color="secondary" />
+      </div>
+    );
   }
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={6}>
+    <Grid container>
+      <Grid item xs={12} xl={6}>
         <InteractiveStepper
           activeStep={order_status_step}
           onPressNext={onPressNext}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} xl={6}>
         <ReadOnlyStepper activeStep={recieving_most_recent_status} />
       </Grid>
     </Grid>

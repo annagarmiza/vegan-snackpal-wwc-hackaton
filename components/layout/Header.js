@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Image from "next/image";
 import Link from "next/link";
 import { PassageUser } from "@passageidentity/passage-elements/passage-user";
-
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Router from "next/router";
 import { useRouter } from "next/router";
 
@@ -22,16 +22,38 @@ import styles from "@/styles/Header.module.css";
 
 import { useTheme } from "@mui/material/styles";
 
-const pages = ["Swap🔁Rules", "Q&A", "About"];
+const pages = [
+  { title: "Swap🔁Rules", path: "/swaprules" }, // Add paths for your pages
+  { title: "Q&A", path: "/q&a" }, // Add paths for your pages
+  { title: "About", path: "/about" }, // Add paths for your pages
+];
 const settings = ["Account", "Logout"];
 
 const Header = ({ hideHeaderElements }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const router = useRouter();
-  const isHomePage = router.pathname === "/";
+  const [backgroundColor, setBackgroundColor] = React.useState("primary");
 
-  const backgroundColor = isHomePage ? "black" : "primary";
+  const router = useRouter();
+
+  React.useEffect(() => {
+    console.log("I'm innnnnn motherfucker");
+    const handleRouteChange = (url) => {
+      if (url === "/") {
+        setBackgroundColor("black");
+      } else {
+        setBackgroundColor("primary");
+      }
+    };
+
+    // Listen for route changes and update the header color
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, []);
 
   const theme = useTheme();
 
@@ -65,7 +87,7 @@ const Header = ({ hideHeaderElements }) => {
   };
 
   return (
-    <AppBar position="static" style={{ backgroundColor }}>
+    <AppBar position="static" sx={{ backgroundColor: backgroundColor }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <div className={styles.imageContainer_md}>
@@ -123,9 +145,15 @@ const Header = ({ hideHeaderElements }) => {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
+                  <Link
+                    key={page.title}
+                    href={page.path}
+                    className={styles.link_menu}
+                  >
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page.title}</Typography>
+                    </MenuItem>
+                  </Link>
                 ))}
               </Menu>
             </Box>
@@ -158,13 +186,11 @@ const Header = ({ hideHeaderElements }) => {
           {!hideHeaderElements && (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {page}
-                </Button>
+                <Link key={page.title} href={page.path} className={styles.link}>
+                  <Button sx={{ my: 2, color: "white", display: "block" }}>
+                    {page.title}
+                  </Button>
+                </Link>
               ))}
             </Box>
           )}
@@ -172,7 +198,8 @@ const Header = ({ hideHeaderElements }) => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+                  <AccountCircleIcon sx={{ color: "#ffffff" }} />
                 </IconButton>
               </Tooltip>
               <Menu

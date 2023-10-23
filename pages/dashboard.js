@@ -5,7 +5,9 @@ import { getAuthenticatedUserFromSession } from "@/utils/passage";
 import { getSupabase } from "../utils/supabase";
 import { PassageUser } from "@passageidentity/passage-elements/passage-user";
 import MatchProfileCard from "../components/MatchProfileCard";
+import { Grid, Typography, Divider } from "@mui/material";
 import Status from "../components/Status";
+import { LinearProgress } from "@mui/material";
 import {
   get_active_match,
   get_user_preferences,
@@ -91,7 +93,30 @@ export default function Dashboard({ isAuthorized, userID, initialTodos }) {
   if (dataSender && dataRecipient) {
     return (
       <>
-        <div className={styles.main}>
+        <Grid container justifyContent="center">
+          <Grid item xs={12} lg={6} xl={6}>
+            <Grid container>
+              <Grid item xs={12}>
+                <Typography variant="h4" sx={{ marginX: 4, marginY: 4 }}>
+                  This is your Pal! 🤩
+                </Typography>
+                <MatchProfileCard matchInfo={dataRecipient} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="h4" sx={{ marginX: 4, marginY: 4 }}>
+                  Hey you!👋
+                </Typography>
+
+                <MatchProfileCard matchInfo={dataSender} />
+              </Grid>
+            </Grid>
+          </Grid>
+          <br />
+          <Grid item xs={12} lg={6} xl={6} sx={{ marginY: 9 }}>
+            <Status userID={userID} />
+          </Grid>
+        </Grid>
+        {/* <div className={styles.main}>
           <Status userID={userID} />
           <br />
           <br />
@@ -101,11 +126,18 @@ export default function Dashboard({ isAuthorized, userID, initialTodos }) {
               <MatchProfileCard matchInfo={dataRecipient} />
             </div>
           </div>
-        </div>
+        </div> */}
       </>
     );
   } else {
-    return <div>Loading</div>;
+    return (
+      <div>
+        <LinearProgress color="secondary" />
+        <LinearProgress color="secondary" />
+        <LinearProgress color="secondary" />
+        <LinearProgress color="secondary" />
+      </div>
+    );
   }
 }
 
@@ -114,6 +146,8 @@ export const getServerSideProps = async (context) => {
     context.req,
     context.res
   );
+
+  console.log(loginProps.userID);
 
   // let matchData = {
   //   name: "Summy Sunshine",

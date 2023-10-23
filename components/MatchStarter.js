@@ -5,9 +5,13 @@ import api, { generateMatch } from "../utils/api";
 import Router from "next/router";
 const MatchStarter = ({ userID }) => {
   function handleMatchMaker() {
-    generateMatch(userID).then((res) => {
-      console.log("result", res);
-    });
+    generateMatch(userID)
+      .then((res) => {
+        console.log("result", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     Router.push("/dashboard");
   }
 

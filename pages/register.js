@@ -73,7 +73,7 @@ const Register = ({ isAuthorized, userID }) => {
         formData.addressInfo.state +
         " " +
         formData.addressInfo.postcode,
-      name: formData.personalInfo.name,
+      name: formData.personalInfo.name + " " + formData.personalInfo.lastName,
       email: formData.personalInfo.email,
       country: formData.addressInfo.country,
       user_id_passage: `${userID}`,
@@ -106,6 +106,7 @@ export const getServerSideProps = async (context) => {
     context.req,
     context.res
   );
+  console.log("IN IN REGISTERRRR", loginProps.isAuthorized, loginProps.userID);
   // let user_exist_in_supabase = get_user_passage_id(`${loginProps.userID}`).then(
   //   (res) => {
   //     return res;

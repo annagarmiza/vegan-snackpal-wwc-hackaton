@@ -10,10 +10,11 @@ export default function Home({ isAuthorized, userID }) {
   useEffect(() => {
     get_user_passage_id(userID)
       .then((res) => {
+        console.log(res, isAuthorized);
         if (res && isAuthorized) {
           // User is authorized and registered, so stay on the dashboard
           Router.push("/dashboard");
-        } else {
+        } else if (isAuthorized) {
           // User is not registered, redirect to the registration page
           Router.push("/register");
         }
@@ -26,7 +27,7 @@ export default function Home({ isAuthorized, userID }) {
     //   Router.push("/dashboard");
     // } else {
     // }
-  });
+  }, []);
 
   return (
     <>

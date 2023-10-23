@@ -53,8 +53,13 @@ export default function InteractiveStepper({ activeStep, onPressNext }) {
 
   return (
     <>
-      <Typography variant="h4">Your SnackTracker</Typography>
-      <Box sx={{ maxWidth: 400 }}>
+      <Paper
+        elevation={3}
+        sx={{ maxWidth: 500, paddingX: 4, paddingY: 2, marginX: 4, marginY: 4 }}
+      >
+        <Typography variant="h4" color="primary">
+          Your SnackTracker
+        </Typography>
         <Stepper activeStep={localStep} orientation="vertical">
           {steps.map((step, index) => (
             <Step key={step.label}>
@@ -106,7 +111,7 @@ export default function InteractiveStepper({ activeStep, onPressNext }) {
             </Button> */}
           </Paper>
         )}
-      </Box>
+      </Paper>
     </>
   );
 }

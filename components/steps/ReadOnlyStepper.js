@@ -30,10 +30,14 @@ const steps = [
 export default function ReadOnlyStepper({ activeStep }) {
   return (
     <>
-      <Typography variant="h4" color="secondary">
-        Pal's Snacktivity Status
-      </Typography>
-      <Box sx={{ maxWidth: 400 }}>
+      {/* <Box sx={{ maxWidth: 400 }}> */}
+      <Paper
+        elevation={3}
+        sx={{ maxWidth: 500, paddingX: 4, paddingY: 2, marginX: 4, marginY: 4 }}
+      >
+        <Typography variant="h4" color="secondary">
+          Pal's Snacktivity Status
+        </Typography>
         <Stepper
           color="secondary"
           activeStep={activeStep}
@@ -79,7 +83,7 @@ export default function ReadOnlyStepper({ activeStep }) {
             </Typography>
           </Paper>
         )}
-      </Box>
+      </Paper>
     </>
   );
 }
