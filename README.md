@@ -1,5 +1,10 @@
-# Vegan Snack Pal - Women Who Code Hackaton 2023
+# Vegan Snack Pal - Submission for the Women Who Code Hackaton 2023
 Our project simplifies global access to vegan snacks by enabling easy package exchanges between users from different countries. It matches users for smooth exchanges with real-time tracking, promoting a plant-based diet and reducing environmental impact. Built with Next.js and Supabase for an efficient and seamless experience.🌱📦🔁🍫
+
+# Main Functionality: 
+- Users can register to the app and participate in a global package exchange experience.
+- Once registered, they are randomly matched with another user from a different country.
+- Users can track the status of the package they've sent and the one they'll receive, updating their own package's status along the way. 
 
 ## Set up
 
@@ -13,5 +18,5 @@ Our project simplifies global access to vegan snacks by enabling easy package ex
 
 ## Collaborators 
 
-- Berenika Ahmetaj ([GitHub](https://github.com/johndoe))
-- Anna Garmiza ([GitHub](https://github.com/annagarmiza))
+- Berenika Ahmetaj ([GitHub](https://github.com/johndoe)) - Lead Developer
+- Anna Garmiza ([GitHub](https://github.com/annagarmiza)) - Lead Developer
