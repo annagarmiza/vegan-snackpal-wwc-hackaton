@@ -1,5 +1,6 @@
 # Vegan Snack Pal - Submission for the Women Who Code Hackaton 2023
 Our project simplifies global access to vegan snacks by enabling easy package exchanges between users from different countries. It matches users for smooth exchanges with real-time tracking, promoting a plant-based diet and reducing environmental impact. Built with Next.js and Supabase for an efficient and seamless experience.🌱📦🔁🍫
+Vegan Snack Pal uses Passage authentication, seamlessly integrated with Supabase to manage database and storage operations, ensuring a secure and reliable platform for snack enthusiasts worldwide.
 
 # Main Functionality: 
 - Users can register to the app and participate in a global package exchange experience.
